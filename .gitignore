@@ -17,6 +17,8 @@ env/
 .env.local
 .env/
 
+.env
+
 # Native
 *.orig.*
 *.jks
