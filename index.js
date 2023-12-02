@@ -32,7 +32,7 @@ app.post("/api/spotify/token", async (req, res) => {
     console.log({ data });
     res.json(data);
   } catch (error) {
-    console.log({ error });
+    console.log({ error: error.response.request });
     res.status(400).json(error);
   }
 });
