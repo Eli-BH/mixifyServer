@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Path: server\index.js
 app.post("/api/spotify/token", async (req, res) => {
-  const { code, redirect_uri, client_id } = req.body;
+  const { code } = req.body;
 
   try {
     const { data } = await axios.post(
@@ -18,8 +18,8 @@ app.post("/api/spotify/token", async (req, res) => {
       qs.stringify({
         grant_type: "authorization_code",
         code,
-        redirect_uri,
-        client_id,
+        redirect_uri: process.env.REDIRECT_URI,
+        client_id: process.env.CLIENT_ID,
         client_secret: process.env.CLIENT_SECRET,
       }),
       {
