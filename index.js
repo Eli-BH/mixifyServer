@@ -61,11 +61,15 @@ app.post("/api/spotify/refresh", async (req, res) => {
       qs.stringify({
         grant_type: "refresh_token",
         refresh_token: refreshToken,
-        client_id: process.env.CLIENT_ID,
       }),
       {
         headers: {
           "content-type": "application/x-www-form-urlencoded",
+          Authorization:
+            "Basic " +
+            new Buffer.from(
+              process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET
+            ).toString("base64"),
         },
       }
     );
