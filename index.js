@@ -52,6 +52,47 @@ app.post("/api/spotify/token", async (req, res) => {
   }
 });
 
+app.post("/api/spotify/refresh", async (res, res) => {
+  try {
+    const { refreshToken, code } = req.body;
+
+    const { data } = await axios.post(
+      "https://accounts.spotify.com/api/token",
+      qs.stringify({
+        grant_type: "refresh_token",
+        refreshToken: refreshToken,
+        client_id: process.env.CLIENT_ID,
+      }),
+      {
+        headers: {
+          "content-type": "application/x-www-form-urlencoded",
+        },
+      }
+    );
+    const { access_token, refresh_token } = data;
+    console.log({ access_token, refresh_token });
+    return res.json("success");
+  } catch (error) {
+    console.error("Error message:", error.message);
+
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      console.error("Response data:", error.response.data);
+      console.error("Response status:", error.response.status);
+      console.error("Response headers:", error.response.headers);
+    } else if (error.request) {
+      // The request was made but no response was received
+      console.error("Request data:", error.request);
+    } else {
+      // Something happened in setting up the request that triggered an error
+      console.error("Error", error.message);
+    }
+
+    res.status(400).json({ message: error.message });
+  }
+});
+
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
