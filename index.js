@@ -73,9 +73,11 @@ app.post("/api/spotify/refresh", async (req, res) => {
         },
       }
     );
-    const { access_token, refresh_token } = data;
 
-    return res.json({ access_token, refresh_token });
+    return res.json({
+      accessToken: data.access_token,
+      refreshToken: data.refresh_token,
+    });
   } catch (error) {
     console.error("Error message:", error.message);
 
