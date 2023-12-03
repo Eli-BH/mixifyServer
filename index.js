@@ -52,7 +52,7 @@ app.post("/api/spotify/token", async (req, res) => {
   }
 });
 
-app.post("/api/spotify/refresh", async (res, res) => {
+app.post("/api/spotify/refresh", async (req, res) => {
   try {
     const { refreshToken, code } = req.body;
 
