@@ -60,7 +60,7 @@ app.post("/api/spotify/refresh", async (req, res) => {
       "https://accounts.spotify.com/api/token",
       qs.stringify({
         grant_type: "refresh_token",
-        refreshToken: refreshToken,
+        refresh_token: refreshToken,
         client_id: process.env.CLIENT_ID,
       }),
       {
