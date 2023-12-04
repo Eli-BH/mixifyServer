@@ -52,6 +52,21 @@ app.post("/api/spotify/token", async (req, res) => {
   }
 });
 
+app.get("/api/spotify/credentials", async (req, res) => {
+  try {
+    const clientId = process.env.CLIENT_ID;
+    const clientSecret = process.env.CLIENT_SECRET;
+
+    //send keys to device
+    return res.json({
+      clientId: clientId,
+      clientSecret: clientSecret,
+    });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
 app.post("/api/spotify/refresh", async (req, res) => {
   try {
     const { refreshToken, code } = req.body;
