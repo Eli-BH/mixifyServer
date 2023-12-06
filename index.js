@@ -12,6 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.post("/api/spotify/token", async (req, res) => {
   const { code, redirectUri } = req.body;
 
+  console.log("authenticating user");
   try {
     const { data } = await axios.post(
       "https://accounts.spotify.com/api/token",
@@ -28,6 +29,7 @@ app.post("/api/spotify/token", async (req, res) => {
         },
       }
     );
+    console.log("Authentication successful");
 
     console.log({ data });
     res.json(data);
